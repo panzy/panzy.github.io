@@ -1,3 +1,3 @@
 # panzy.github.io
 
-[The page](https://panzy.github.io/)
+[My homepage](https://panzy.github.io/)
