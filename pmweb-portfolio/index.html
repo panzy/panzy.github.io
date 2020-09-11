@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LingTalk web client</title>
+  <style>
+    body {
+      font-size: 125%;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    div.comment {
+      float: left;
+      max-width: 45%;
+    }
+    div.imgs {
+      float: right;
+      max-width: 45%;
+    }
+    div.imgs img {
+      max-width: 100%;
+    }
+
+    .clear {
+      clear: both;
+      border-bottom: 1px solid gray;
+    }
+    br {
+      margin-bottom: 50px;
+    }
+  </style>
+</head>
+<body>
+
+
+  <div class='section'>
+    <div class='comment'>
+      <h1>LingTalk web client</h1>
+      <p>by Zhiyong Pan</p>
+      <p><a href='https://lingtalk.cn/EN/index.html'>LingTalk</a> is one of the product I worked on in my last job.
+      It's an instant message service.</p>
+      <p>I participated in development of the Android client, and developed the web client solely.</p>
+      <p>There are 3 doplyments:</p>
+      <ul>
+        <li>Production in use: <a href='https://lingtalk.cn:3001/'>https://lingtalk.cn:3001/</a></li>
+        <li>Demo on Azure: <a href='https://webpm.azurewebsites.net/'>https://webpm.azurewebsites.net/</a>.
+        It's a test environment, feel free to login as <a href='https://webpm.azurewebsites.net/?token=eyJ1aWQiOiJwYW56eTEiLCJwYXNzd2QiOiJhZDJkMTY3ZWNjZjlhYTJmMGZkYzQ5MzQ3MGQwMGYxNCJ9'>panzy1</a>,
+        and as <a href='https://webpm.azurewebsites.net/?token=eyJ1aWQiOiJwYW56eTIiLCJwYXNzd2QiOiJhZDJkMTY3ZWNjZjlhYTJmMGZkYzQ5MzQ3MGQwMGYxNCJ9'>panzy2</a>,
+        and send some random messages.</li>
+        <li>Development on localhost.</li>
+      </ul>
+    </div>
+    <div class='imgs'>
+      <img src='./dev-localhost.png' />
+    </div>
+  </div>
+  <div class='clear'></div>
+  <br>
+
+  <div class='section'>
+    <div class='comment'>
+      <p>It began in Dec 2016 as an unofficial project, starting from Node backend + jQuery frontend...</p>
+    </div>
+    <div class='imgs'>
+      <img src='./project-began-2016-jquery.png' />
+    </div>
+  </div>
+  <div class='clear'></div>
+  <br>
+
+  <div class='section'>
+    <div class='comment'>
+      <p>...and adopted React immediately.</p>
+      <p>It works like this: the whole website - React frontend + Node
+      backend - acts as a client. Just like an Android/iPhone/Windows
+      client, but a multiple-user one. There are multiple users connect to
+      the single backend.</p>
+      <p>The frontend communicates with the backend via
+      <code>socket.io</code> and RESTful APIs; the backend communicates
+      with the instant message service and file service via socket, in
+      customed protocols.</p>
+    </div>
+    <div class='imgs'>
+      <img src='./project-adopted-React-quickly.png'/>
+    </div>
+  </div>
+  <div class='clear'></div>
+  <br>
+
+  <div class='section'>
+    <div class='comment'>
+      <p> It has been a long journey since then. Struggled with getting build
+      tools to work; saw several dependencies went dead. </p>
+      <p>Learned a lot during this project.</p>
+    </div>
+    <div class='imgs'>
+      <img src='./upgrade-react-15-16.png'/>
+    </div>
+  </div>
+  <div class='clear'></div>
+  <br>
+
+  <div class='section'>
+    <div class='comment'>
+      <p>Didn't use Create-React-App, as the project didn't begin as a
+      React one. But managed to write proper scripts to make my life
+      easier.</p>
+      <ul>
+        <li>incremental building</li>
+        <li>monitor file changes</li>
+      </ul>
+    </div>
+    <div class='imgs'>
+      <img src="./scripts.png" alt="message editor">
+    </div>
+  </div>
+  <div class='clear'></div>
+  <br>
+
+  <div class='section'>
+    <div class='comment'>
+      <p>Test JS functions and simple React compoents with <code>mocha + jsdom</code>.</p>
+    </div>
+    <div class='imgs'>
+      <img src="./test-functions-with-mocha.png" alt="message editor">
+    </div>
+  </div>
+  <div class='clear'></div>
+  <br>
+
+  <div class='section'>
+    <div class='comment'>
+      <p>Test complexed React components with <code>karma</code> + headless browsers.</p>
+      <p>One reason headless browsers are needed is that <code>jsdom</code>
+      doesn't implement <code>document.execCommand()</code>.</p>
+    </div>
+    <div class='imgs'>
+      <img src="./test-ui-with-headless-browsers.png" alt="message editor">
+    </div>
+  </div>
+  <div class='clear'></div>
+  <br>
+
+  <div class='section'>
+    <div class='comment'>
+      <p>Implemented a rich text editor with <code>contenteditable</code> API. Features:</p>
+      <ul>
+        <li>inserting @ mentions</li>
+        <li>inserting PNG emotions</li>
+        <li>various panels for inserting emojis, PNG emotions, @ mentions, and GIF emotions</li>
+        <li>pasting pictures, preview and send</li>
+        <li>CSS animations</li>
+      </ul>
+    </div>
+    <div class='imgs'>
+      <img src="./composer.gif" alt="message editor">
+    </div>
+  </div>
+  <div class='clear'></div>
+  <br>
+
+  <div class='section'>
+    <div class='comment'>
+      <p>Used <code>Draft.js</code> for a while before <code>contenteditable</code> to implement my message
+      editor. But it has serious bug on Chromium-based browsers, having
+      something to do with input methods.</p>
+
+      <p>It turns out, the W3C API for <code>contenteditable</code> is no
+      more complex than <code>Draft.js</code>.</p>
+    </div>
+    <div class='imgs'>
+      <img src="./rich-text-editor-execCommand-API.png">
+    </div>
+  </div>
+  <div class='clear'></div>
+  <br>
+
+  <div class='section'>
+    <div class='comment'>
+      <p>The UI is quite efficient.</p>
+      <p>I didn't write the React component to implement an efficient list
+      view. However, the adoption of such a 3rd-part component demonstrates
+      that I am aware of GUI performance, and the experience of Android
+      devolopment had guided me to the right solution for web
+      development.</p>
+    </div>
+    <div class='imgs'>
+      <img src="./efficient-list-view.gif" alt="message editor">
+    </div>
+  </div>
+  <div class='clear'></div>
+  <br>
+
+  <div class='section'>
+    <div class='comment'>
+      <p>Experienced using of Microsoft Azure, Amazon AWS, and Alibaba Cloud.</p>
+      <p>This project is deployed to Azure for demo purpose.</p>
+      <p>The depolyment is initiated from local git repo.</p>
+    </div>
+    <div class='imgs'>
+      <img src="./deploy-azure-local-git.png" alt="message editor">
+      <img src="./deploy-azure-local-git-2.png" alt="message editor">
+    </div>
+  </div>
+  <div class='clear'></div>
+  <br>
+
+  <div class='section'>
+    <div class='comment'>
+      <p>Configurations for different environments are choosed at runtime basing on a environment variable.</p>
+      <p>There are configuration items such as</p>
+      <ul>
+        <li>hosts of the IM service and file service -- these external services are the backend of the backend of this web app</li>
+      </ul>
+    </div>
+    <div class='imgs'>
+      <img src="./load-runtime-configurations.png" alt="message editor">
+    </div>
+  </div>
+  <div class='clear'></div>
+  <br>
+
+  <div class='section'>
+    <div class='comment'>
+      <p>On production server, the backend Node process is managed by <code>PM2</code>.</p>
+    </div>
+    <div class='imgs'>
+      <img src="./pm2-production.png" alt="message editor">
+    </div>
+  </div>
+  <div class='clear'></div>
+  <br>
+
+  <div class='section'>
+    <div class='comment'>
+      <p>Wrote an adapter in the backend to expose the file service, which
+      uses a private protocol on top of TCP, to frontend as RESTful APIs.
+      </p>
+    </div>
+    <div class='imgs'>
+      <img src="./file-service-adapter.png" alt="message editor">
+    </div>
+  </div>
+  <div class='clear'></div>
+  <br>
+
+  <div class='section'>
+    <div class='comment'>
+      <p>Use FFmpeg to convert audios from AMR to MP3, so that they can be played with <code>&lt;audio&gt;</code>. </p>
+    </div>
+    <div class='imgs'>
+      <img src="./convert-amr2mp3-on-the-fly.png" alt="message editor">
+      <img src="./convert-amr2mp3-on-the-fly-2.png" alt="message editor">
+    </div>
+  </div>
+  <div class='clear'></div>
+  <br>
+
+  <div class='section'>
+    <div class='comment'>
+      <p>CSS animations are applied when transitions are crucial.</p>
+    </div>
+    <div class='imgs'>
+      <img src="./css-animation.png" alt="message editor">
+    </div>
+  </div>
+  <div class='clear'></div>
+  <br>
+
+  <div class='section'>
+    <div class='comment'>
+      <p>Have HTTP knownledge.</p>
+      <p>Properly use HTTP headers and status codes.</p>
+    </div>
+    <div class='imgs'>
+      <img src="./HTTP.png" alt="message editor">
+    </div>
+  </div>
+  <div class='clear'></div>
+  <br>
+
+  <div class='section'>
+    <div class='comment'>
+      <p>The core instant message service uses a protocol similar to <a href='https://xmpp.org/'>XMPP</a>.</p>
+    </div>
+    <div class='imgs'>
+      <img src="./process-XMPP-style-IM-protocal.png" alt="message editor">
+    </div>
+  </div>
+  <div class='clear'></div>
+  <br>
+
+  <div class='section'>
+    <div class='comment'>
+      <p>The item positions of message list view are precisely tracked, so
+      the app knowns how many unread messages are there when scrolling.</p>
+    </div>
+    <div class='imgs'>
+      <img src="./track-message-list-scrolling.gif" alt="message editor">
+    </div>
+  </div>
+  <div class='clear'></div>
+  <br>
+
+  <div class='section'>
+    <div class='comment'>
+      <p>With <code>envify</code>, the frontend has access to build-time
+      environment variables.</p>
+      <p>So it's possible for the frontend to turn off logs when it is
+      deployed in the production environment.</p>
+    </div>
+    <div class='imgs'>
+      <img src="./turnoff-frontend-logs-production-1.png" alt="message editor">
+      <img src="./turnoff-frontend-logs-production-2.png" alt="message editor">
+    </div>
+  </div>
+  <div class='clear'></div>
+  <br>
+
+  <div class='section'>
+    <div class='comment'>
+      <p>Multiple languages</p>
+    </div>
+    <div class='imgs'>
+      <img src="./multiple-langs.png" alt="message editor">
+    </div>
+  </div>
+  <div class='clear'></div>
+  <br>
+
+</body>
+</html>
